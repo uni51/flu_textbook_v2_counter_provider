@@ -1,72 +1,63 @@
-import 'package:counter_provider/count_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:counter_provider/count_page.dart';
+import 'package:counter_provider/count_page2.dart';
+import 'package:counter_provider/count_page3.dart';
+import 'package:counter_provider/count_page4.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: MyHomePage(),
+    return const MaterialApp(
+      title: 'demo',
+      home: Home(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  // 選択中フッターメニューのインデックスを一時保存する用変数
+  int selectedIndex = 0;
+
+  // 切り替える画面のリスト
+  List<Widget> display = [CountPage(), CountPage2(), CountPage3(), CountPage4()];
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CountModel>(
-      create: (_) => CountModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text('カウンター'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-              // Consumer<CountModel>(builder: (context, model, child) {
-              Builder(builder: (context) {
-                // final model = Provider.of<CountModel>(context);
-                final model = context.watch<CountModel>();
-                // final count = model.count;
-                return Text(
-                  // '$count',
-                  '${model.count}',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                );
-              }),
-            ],
-          ),
-        ),
-        floatingActionButton:
-            // Consumer<CountModel>(builder: (context, model, child) {
-            Builder(builder: (context) {
-          final model = context.read<CountModel>();
-          return FloatingActionButton(
-            onPressed: () {
-              model.incrementCounter();
-            },
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          );
-        }),
-      ),
-    );
+    return Scaffold(
+        appBar: AppBar(title: const Text('Counter Provider Demo')),
+        body: display[selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          // 3つ以上表示する場合はこの設定が必要となる
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: '01'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.notifications_none), label: '02'),
+            BottomNavigationBarItem(icon: Icon(Icons.people), label: '03'),
+            BottomNavigationBarItem(icon: Icon(Icons.access_alarm), label: '04'),
+          ],
+          // 現在選択されているフッターメニューのインデックス
+          currentIndex: selectedIndex,
+          // フッター領域の影
+          elevation: 0,
+          // フッターメニュータップ時の処理
+          onTap: (int index) {
+            selectedIndex = index;
+            setState(() {});
+          },
+          // 選択中フッターメニューの色
+          fixedColor: Colors.red,
+        ));
   }
 }
