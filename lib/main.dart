@@ -40,10 +40,14 @@ class MyHomePage extends StatelessWidget {
               const Text(
                 'You have pushed the button this many times:',
               ),
-              Consumer<CountModel>(builder: (context, model, child) {
-                final count = model.count;
+              // Consumer<CountModel>(builder: (context, model, child) {
+              Builder(builder: (context) {
+                // final model = Provider.of<CountModel>(context);
+                final model = context.watch<CountModel>();
+                // final count = model.count;
                 return Text(
-                  '$count',
+                  // '$count',
+                  '${model.count}',
                   style: Theme.of(context).textTheme.headlineMedium,
                 );
               }),
@@ -51,7 +55,9 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         floatingActionButton:
-            Consumer<CountModel>(builder: (context, model, child) {
+            // Consumer<CountModel>(builder: (context, model, child) {
+            Builder(builder: (context) {
+          final model = context.read<CountModel>();
           return FloatingActionButton(
             onPressed: () {
               model.incrementCounter();
