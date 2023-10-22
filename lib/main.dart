@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
             setState(() {});
           },
           // 選択中フッターメニューの色
-          fixedColor: Colors.red,
+          fixedColor: Colors.blue,
         ));
   }
 }
