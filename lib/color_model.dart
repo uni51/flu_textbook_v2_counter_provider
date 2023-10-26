@@ -1,8 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'count_model.dart';
 
-class ColorModel extends CountModel {
+class ColorModel extends ChangeNotifier {
   Color counterColor = Colors.red;
 
   void randomColor() {
