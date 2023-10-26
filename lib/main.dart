@@ -30,7 +30,12 @@ class _HomeState extends State<Home> {
   int selectedIndex = 0;
 
   // 切り替える画面のリスト
-  List<Widget> display = [CountPage(), CountPage2(), CountPage3(), CountPage4()];
+  List<Widget> display = [
+    CountPage(),
+    CountPage2(),
+    CountPage3(),
+    CountPage4()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +50,8 @@ class _HomeState extends State<Home> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_none), label: '02'),
             BottomNavigationBarItem(icon: Icon(Icons.people), label: '03'),
-            BottomNavigationBarItem(icon: Icon(Icons.access_alarm), label: '04'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.access_alarm), label: '04'),
           ],
           // 現在選択されているフッターメニューのインデックス
           currentIndex: selectedIndex,
@@ -57,7 +63,7 @@ class _HomeState extends State<Home> {
             setState(() {});
           },
           // 選択中フッターメニューの色
-          fixedColor: Colors.red,
+          fixedColor: Colors.blue,
         ));
   }
 }
